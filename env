@@ -1,0 +1,8 @@
+# change file to .env for enviroment variables
+APP_PORT=3000
+
+DB_PORT=5432
+DB_HOST=localhost
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
