@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const session = require("express-session");
 const passport = require("passport");
 const pgSession = require("connect-pg-simple")(session);
+const pool = require("./db/pool");
 const auth = require("./auth");
 
 const app = express();
@@ -28,6 +29,9 @@ passport.use(auth.strategy);
 passport.serializeUser(auth.serializer);
 passport.deserializeUser(auth.deserializer);
 
+app.get('/login', (req, res) => {
+  res.status(200).render('login', { title: 'Login'})
+})
 app.post(
   "/login",
   passport.authenticate("local", {
@@ -35,7 +39,6 @@ app.post(
     failureRedirect: "/login",
   }),
 );
-
 app.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) return next(err);
