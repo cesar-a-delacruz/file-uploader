@@ -2,9 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv");
 const session = require("express-session");
 const passport = require("passport");
-const pgSession = require("connect-pg-simple")(session);
-const pool = require("./db/pool");
 const auth = require("./auth");
+const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const { PrismaClient } = require("./generated/prisma");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -14,10 +14,10 @@ dotenv.config();
 
 app.use(
   session({
-    store: new pgSession({
-      pool: pool,
-      tableName: "session",
-      createTableIfMissing: true,
+    store: new PrismaSessionStore(new PrismaClient(), {
+      checkPeriod: 2 * 60 * 1000,
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
     }),
     secret: "secret",
     resave: false,
@@ -29,9 +29,9 @@ passport.use(auth.strategy);
 passport.serializeUser(auth.serializer);
 passport.deserializeUser(auth.deserializer);
 
-app.get('/login', (req, res) => {
-  res.status(200).render('login', { title: 'Login'})
-})
+app.get("/login", (req, res) => {
+  res.status(200).render("login", { title: "Login" });
+});
 app.post(
   "/login",
   passport.authenticate("local", {
