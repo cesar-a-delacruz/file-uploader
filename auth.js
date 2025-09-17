@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 module.exports = {
   strategy: new LocalStrategy(async (username, password, done) => {
     try {
-    //   const user = await userModel.findByEmail(username);
+      //   const user = await userModel.findByEmail(username);
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
@@ -22,7 +22,7 @@ module.exports = {
   serializer: (user, done) => done(null, user.id),
   deserializer: async (id, done) => {
     try {
-    //   const user = await userModel.find(id);
+      //   const user = await userModel.find(id);
       done(null, user);
     } catch (err) {
       done(err);
