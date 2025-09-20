@@ -6,6 +6,7 @@ const auth = require("./auth");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("./generated/prisma");
 const userRouter = require("./routes/userRouter");
+const fileRouter = require("./routes/fileRouter");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +49,7 @@ app.get("/logout", (req, res) => {
 });
 
 app.use("/user", userRouter);
+app.use("/file", fileRouter);
 
 app.listen(process.env.APP_PORT, (error) => {
   if (error) throw error;
