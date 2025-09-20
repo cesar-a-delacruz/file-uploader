@@ -26,3 +26,9 @@ model Session {
   data      String   @db.Text
   expiresAt DateTime
 }
+
+model File {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar()
+  size Float  @db.DoublePrecision
+}
