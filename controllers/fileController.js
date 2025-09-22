@@ -26,11 +26,12 @@ module.exports = {
     async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) return res.status(400).json(errors.array());
-      if (!req.user) return res.status(400).json('log in');
+      if (!req.user) return res.status(400).json("log in");
 
       const { name } = req.body;
       const size = Number((req.file.size / 1000000).toFixed(2));
-      await model.create({ data: { name, size } });
+      const userId = req.user.id;
+      await model.create({ data: { name, size, userId } });
       res.redirect("/file/index");
     },
   ],
