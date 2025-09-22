@@ -18,6 +18,7 @@ model User {
   id       Int    @id @default(autoincrement())
   username String @db.VarChar(100)
   password String @db.Char(60)
+  files    File[]
 }
 
 model Session {
@@ -28,7 +29,9 @@ model Session {
 }
 
 model File {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar()
-  size Float  @db.DoublePrecision
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar()
+  size   Float  @db.DoublePrecision
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
 }
