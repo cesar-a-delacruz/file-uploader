@@ -3,11 +3,22 @@ const { validationResult } = require("express-validator");
 const validator = require("../validators/fileValidator");
 const model = new PrismaClient().file;
 const path = require("path");
+const fs = require("fs");
 const multer = require("multer");
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: "uploads/",
+    destination: (req, file, cb) => {
+      const uploadPath = `uploads/${req.user.id}`;
+      fs.readdir(uploadPath, (err) => {
+        if (err) {
+          fs.mkdir(uploadPath, (err) => {
+            if (err) console.log(err);
+            else cb(null, uploadPath);
+          });
+        } else cb(null, uploadPath);
+      });
+    },
     filename: (req, file, cb) => {
       const extension = path.extname(file.originalname);
       const name = req.body.name;
