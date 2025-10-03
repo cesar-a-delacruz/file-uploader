@@ -50,8 +50,8 @@ app.get("/logout", (req, res) => {
 });
 
 app.use("/user", userRouter);
-app.use("/file", fileRouter);
 app.use("/folder", folderRouter);
+app.use("/file", fileRouter);
 
 app.listen(process.env.APP_PORT, (error) => {
   if (error) throw error;

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <a href="/file/new?folderName=<%= title %>">New</a>
+    <% if (files.length) { %>
+    <ul>
+        <% files.forEach(file => { %>
+        <li>
+            <span><%= file.name %></span> 
+            <div class="options">
+                <a href="/file/show/<%= file.name %>">View</a>
+                <a href="/file/edit/<%= file.name %>">Edit</a>
+                <form action="/file/delete" method="post">
+                    <input type="hidden" name="id" value="<%= file.id %>">
+                    <input type="hidden" name="name" value="<%= file.name %>">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </li>
+        <% }) %>
+    </ul>
+    <% } else { %>
+        <p>No files have been created!</p>
+    <% } %>
+</body>
+</html>
