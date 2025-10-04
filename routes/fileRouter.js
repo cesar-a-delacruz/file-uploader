@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const filter = require('../filter')
+const filter = require("../middlewares/filter");
 const controller = require("../controllers/fileController");
 
 router.get("/:folderId/index", [filter, controller.index]);
