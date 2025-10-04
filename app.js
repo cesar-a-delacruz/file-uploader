@@ -34,10 +34,14 @@ passport.deserializeUser(auth.deserializer);
 app.get("/login", (req, res) => {
   res.status(200).render("login", { title: "Login" });
 });
+app.get("/", (req, res) => {
+  if(req.user) res.redirect('/folder');
+  else res.redirect('/login');
+});
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/folder",
     failureRedirect: "/login",
   }),
 );
