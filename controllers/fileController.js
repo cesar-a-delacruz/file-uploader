@@ -9,8 +9,11 @@ const multer = require("multer");
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      const uploadPath = `uploads/${req.user.id}/${req.body.folder}`;
+    destination: async (req, file, cb) => {
+      const folderName = (
+        await folderModel.findFirst({ where: { id: Number(req.body.folder) } })
+      ).name;
+      const uploadPath = `uploads/${req.user.id}/${folderName}`;
       fs.readdir(uploadPath, (err) => {
         if (err) {
           fs.mkdir(uploadPath, (err) => {
@@ -30,12 +33,14 @@ const upload = multer({
 
 module.exports = {
   async index(req, res) {
+    const folderId = Number(req.params.folderId);
     const files = await model.findMany({
-      where: { userId: req.user.id, folder: { name: req.params.folderName } },
+      where: { userId: req.user.id, folderId },
     });
-    res
-      .status(200)
-      .render("file/index", { title: req.params.folderName, files });
+    const folderName = (
+      await folderModel.findFirst({ where: { id: folderId } })
+    ).name;
+    res.status(200).render("file/index", { title: folderName, files });
   },
   async new(req, res) {
     const folderId = (
