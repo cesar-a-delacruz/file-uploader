@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const validator = require("../validators/userValidator");
 const model = new PrismaClient().user;
-const fs = require("node:fs/promises");
+const fs = require("fs");
 
 module.exports = {
   new(req, res) {
@@ -19,7 +19,9 @@ module.exports = {
       password = await bcrypt.hash(password, 10);
       const user = await model.create({ data: { username, password } });
 
-      await fs.mkdir(`uploads/${user.id}`);
+      fs.mkdir(`uploads/${user.id}`, (err) => {
+        if (err) console.error(err);
+      });
       res.redirect("/login");
     },
   ],
