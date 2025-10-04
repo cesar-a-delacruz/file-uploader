@@ -26,6 +26,7 @@ const upload = multer({
     filename: (req, file, cb) => {
       const extension = path.extname(file.originalname);
       const name = req.body.name;
+      req.ext = extension
       cb(null, name + extension);
     },
   }),
@@ -55,7 +56,7 @@ module.exports = {
       where: { userId: req.user.id, id: Number(req.params.fileId) },
     });
     file.uploadTime = file.uploadTime.toLocaleString();
-    res.status(200).render("file/show", { title: file.name, file });
+    res.status(200).render("file/show", { title: file.name, file, folder: file.folderId });
   },
   create: [
     upload.single("file"),
@@ -74,9 +75,15 @@ module.exports = {
       const size = Number((req.file.size / 1000000).toFixed(2));
       const userId = req.user.id;
       await model.create({
-        data: { name, size, userId, folderId: Number(folder) },
+        data: { name: name + req.ext, size, userId, folderId: Number(folder) },
       });
       res.redirect(`/file/${folder}/index`);
     },
   ],
+  download: async (req, res) => {
+    const folderName = (await folderModel.findFirst({where: {userId: req.user.id, id: Number(req.body.folder)}})).name
+    res.download(`uploads/${req.user.id}/${folderName}/${req.params.fileName}`, (err) => {
+      if (err) console.error(err)
+    })
+  }
 };
