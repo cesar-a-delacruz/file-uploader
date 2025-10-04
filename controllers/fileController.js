@@ -4,7 +4,7 @@ const validator = require("../validators/fileValidator");
 const model = new PrismaClient().file;
 const folderModel = new PrismaClient().folder;
 const fs = require("fs");
-const upload = require('../files');
+const upload = require("../files");
 
 module.exports = {
   async index(req, res) {

@@ -1,5 +1,5 @@
 const { PrismaClient } = require("./generated/prisma");
-const folderModel = new PrismaClient().folder; 
+const folderModel = new PrismaClient().folder;
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
@@ -27,4 +27,14 @@ module.exports = multer({
       cb(null, name + extension);
     },
   }),
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only image files are allowed!"), false);
+    }
+  },
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
 });
