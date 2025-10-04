@@ -1,11 +1,12 @@
 const router = require("express").Router();
+const filter = require('../filter')
 const controller = require("../controllers/fileController");
 
-router.get("/:folderId/index", controller.index);
-router.get("/new", controller.new);
-router.get("/show/:fileId", controller.show);
-router.post("/create", controller.create);
-router.post("/delete", controller.delete);
-router.post("/download/:fileName", controller.download);
+router.get("/:folderId/index", [filter, controller.index]);
+router.get("/new", [filter, controller.new]);
+router.get("/show/:fileId", [filter, controller.show]);
+router.post("/create", [filter, controller.create]);
+router.post("/delete", [filter, controller.delete]);
+router.post("/download/:fileName", [filter, controller.download]);
 
 module.exports = router;

@@ -35,8 +35,14 @@ app.get("/login", (req, res) => {
   res.status(200).render("login", { title: "Login" });
 });
 app.get("/", (req, res) => {
-  if(req.user) res.redirect('/folder');
-  else res.redirect('/login');
+  if (req.user) res.redirect("/folder");
+  else res.redirect("/login");
+});
+app.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    return res.redirect("/");
+  });
 });
 app.post(
   "/login",
@@ -45,12 +51,6 @@ app.post(
     failureRedirect: "/login",
   }),
 );
-app.get("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    return res.redirect("/");
-  });
-});
 
 app.use("/user", userRouter);
 app.use("/folder", folderRouter);
