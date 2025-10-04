@@ -20,11 +20,10 @@ app.use(
     store: new PrismaSessionStore(new PrismaClient(), {
       checkPeriod: 2 * 60 * 1000,
       dbRecordIdIsSessionId: true,
-      dbRecordIdFunction: undefined,
     }),
     secret: "secret",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
   }),
 );
 app.use(passport.session());
