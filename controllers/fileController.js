@@ -51,10 +51,10 @@ module.exports = {
     res.status(200).render("file/new", { title: "New File", folderId });
   },
   async show(req, res) {
-    const file =
-      await model.findFirst({
-        where: { userId: req.user.id, id: Number(req.params.fileId) },
-      });
+    const file = await model.findFirst({
+      where: { userId: req.user.id, id: Number(req.params.fileId) },
+    });
+    file.uploadTime = file.uploadTime.toLocaleString();
     res.status(200).render("file/show", { title: file.name, file });
   },
   create: [

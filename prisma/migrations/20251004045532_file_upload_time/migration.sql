@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "public"."File" ADD COLUMN     "uploadTime" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
