@@ -3,6 +3,6 @@ const controller = require("../controllers/fileController");
 
 router.get("/:folderId/index", controller.index);
 router.get("/new", controller.new);
+router.get("/show/:fileId", controller.show);
 router.post("/create", controller.create);
-
 module.exports = router;

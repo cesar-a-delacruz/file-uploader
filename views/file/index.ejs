@@ -14,8 +14,7 @@
         <li>
             <span><%= file.name %></span> 
             <div class="options">
-                <a href="/file/show/<%= file.name %>">View</a>
-                <a href="/file/edit/<%= file.name %>">Edit</a>
+                <a href="/file/show/<%= file.id %>">View</a>
                 <form action="/file/delete" method="post">
                     <input type="hidden" name="id" value="<%= file.id %>">
                     <input type="hidden" name="name" value="<%= file.name %>">
