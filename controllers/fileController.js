@@ -26,7 +26,7 @@ const upload = multer({
     filename: (req, file, cb) => {
       const extension = path.extname(file.originalname);
       const name = req.body.name;
-      req.ext = extension
+      req.ext = extension;
       cb(null, name + extension);
     },
   }),
@@ -56,7 +56,9 @@ module.exports = {
       where: { userId: req.user.id, id: Number(req.params.fileId) },
     });
     file.uploadTime = file.uploadTime.toLocaleString();
-    res.status(200).render("file/show", { title: file.name, file, folder: file.folderId });
+    res
+      .status(200)
+      .render("file/show", { title: file.name, file, folder: file.folderId });
   },
   create: [
     upload.single("file"),
@@ -80,10 +82,32 @@ module.exports = {
       res.redirect(`/file/${folder}/index`);
     },
   ],
+  delete: async (req, res) => {
+    const file = await model.delete({
+      where: { userId: req.user.id, id: Number(req.body.id) },
+    });
+    const folderName = (
+      await folderModel.findFirst({
+        where: { userId: req.user.id, id: file.folderId },
+      })
+    ).name;
+
+    fs.rm(`uploads/${req.user.id}/${folderName}/${file.name}`, (err) => {
+      if (err) console.error(err);
+    });
+    res.redirect(`/file/${file.folderId}/index`);
+  },
   download: async (req, res) => {
-    const folderName = (await folderModel.findFirst({where: {userId: req.user.id, id: Number(req.body.folder)}})).name
-    res.download(`uploads/${req.user.id}/${folderName}/${req.params.fileName}`, (err) => {
-      if (err) console.error(err)
-    })
-  }
+    const folderName = (
+      await folderModel.findFirst({
+        where: { userId: req.user.id, id: Number(req.body.folder) },
+      })
+    ).name;
+    res.download(
+      `uploads/${req.user.id}/${folderName}/${req.params.fileName}`,
+      (err) => {
+        if (err) console.error(err);
+      },
+    );
+  },
 };

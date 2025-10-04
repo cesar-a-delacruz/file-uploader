@@ -17,7 +17,6 @@
                 <a href="/file/show/<%= file.id %>">View</a>
                 <form action="/file/delete" method="post">
                     <input type="hidden" name="id" value="<%= file.id %>">
-                    <input type="hidden" name="name" value="<%= file.name %>">
                     <button type="submit">Delete</button>
                 </form>
             </div>
