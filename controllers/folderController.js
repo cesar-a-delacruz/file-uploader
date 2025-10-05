@@ -7,17 +7,25 @@ const fs = require("fs");
 module.exports = {
   async index(req, res) {
     const folders = await model.findMany({ where: { userId: req.user.id } });
-    res.status(200).render("folder/index", { title: "All Folders", folders });
+    res.status(200).render("folder/index", {
+      title: "All Folders",
+      user: req.user,
+      folders,
+    });
   },
   async new(req, res) {
-    res.status(200).render("folder/new", { title: "New Folder" });
+    res
+      .status(200)
+      .render("folder/new", { title: "New Folder", user: req.user });
   },
   async edit(req, res) {
     const userId = Number(req.user.id);
     const folder = await model.findFirst({
       where: { userId, name: req.params.name },
     });
-    res.status(200).render("folder/edit", { title: "Edit Folder", folder });
+    res
+      .status(200)
+      .render("folder/edit", { title: "Edit Folder", user: req.user, folder });
   },
   create: [
     validator,

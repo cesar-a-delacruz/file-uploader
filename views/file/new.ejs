@@ -6,7 +6,7 @@
     <title>File Uploader: <%= title %></title>
 </head>
 <body>
-    <h1><%= title %></h1>
+    <%- include("../header.ejs") %>
     <form action="/file/create" method="post" enctype="multipart/form-data" novalidate>
         <input type="hidden" value="<%= folderId %>" name="folder">
         <label for="name">Name:</label>

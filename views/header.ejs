@@ -1,0 +1,10 @@
+<div>
+    <h1><%= locals.title %></h1>
+    <% if (locals.user) {%>
+    <form action="/logout" method="get">
+        <button type="submit">Logout</button>
+    </form>
+    <% } else {%>
+    <a href="<%= locals.link %>"><%= locals.linkName %></a>
+    <% } %>
+</div>

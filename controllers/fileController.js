@@ -15,7 +15,9 @@ module.exports = {
     const folderName = (
       await folderModel.findFirst({ where: { id: folderId } })
     ).name;
-    res.status(200).render("file/index", { title: folderName, files });
+    res
+      .status(200)
+      .render("file/index", { title: folderName, user: req.user, files });
   },
   async new(req, res) {
     const folderId = (
@@ -23,16 +25,21 @@ module.exports = {
         where: { userId: req.user.id, name: req.query.folderName },
       })
     ).id;
-    res.status(200).render("file/new", { title: "New File", folderId });
+    res
+      .status(200)
+      .render("file/new", { title: "New File", user: req.user, folderId });
   },
   async show(req, res) {
     const file = await model.findFirst({
       where: { userId: req.user.id, id: Number(req.params.fileId) },
     });
     file.uploadTime = file.uploadTime.toLocaleString();
-    res
-      .status(200)
-      .render("file/show", { title: file.name, file, folder: file.folderId });
+    res.status(200).render("file/show", {
+      title: file.name,
+      user: req.user,
+      file,
+      folder: file.folderId,
+    });
   },
   create: [
     upload.single("file"),

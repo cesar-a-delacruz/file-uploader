@@ -17,12 +17,16 @@ dotenv.config();
 
 app.use(
   session({
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    },
     store: new PrismaSessionStore(new PrismaClient(), {
       checkPeriod: 2 * 60 * 1000,
       dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
     }),
     secret: "secret",
-    resave: false,
+    resave: true,
     saveUninitialized: true,
   }),
 );
@@ -32,7 +36,11 @@ passport.serializeUser(auth.serializer);
 passport.deserializeUser(auth.deserializer);
 
 app.get("/login", (req, res) => {
-  res.status(200).render("login", { title: "Login" });
+  res.status(200).render("login", {
+    title: "Login",
+    linkName: "Register",
+    link: "/user/new",
+  });
 });
 app.get("/", (req, res) => {
   if (req.user) res.redirect("/folder");

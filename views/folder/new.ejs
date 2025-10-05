@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>File Uploader: <%= title %></title>
 </head>
 <body>
-    <h1><%= title %></h1>
+    <%- include("../header.ejs") %>
     <form action="/folder/create" method="post" novalidate>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name">

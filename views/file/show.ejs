@@ -6,7 +6,7 @@
     <title>File Uploader: <%= title %></title>
 </head>
 <body>
-    <h1><%= title %></h1>
+    <%- include("../header.ejs") %>
     <p>Size: <span><%= file.size %> MB</span></p>
     <p>Upload Time: <span><%= file.uploadTime %></span></p>
     <form action="/file/download/<%= file.name %>" method="post">

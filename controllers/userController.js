@@ -7,7 +7,11 @@ const fs = require("fs");
 
 module.exports = {
   new(req, res) {
-    res.status(200).render("user/new", { title: "Register" });
+    res.status(200).render("user/new", {
+      title: "Register",
+      linkName: "Login",
+      link: "/login",
+    });
   },
   create: [
     validator,
