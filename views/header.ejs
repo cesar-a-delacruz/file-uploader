@@ -1,4 +1,4 @@
-<div id="header">
+<header>
     <h1><%= locals.title %></h1>
     <% if (locals.user) {%>
     <form action="/logout" method="get">
@@ -7,4 +7,4 @@
     <% } else {%>
     <a href="<%= locals.link %>"><%= locals.linkName %></a>
     <% } %>
-</div>
+</header>

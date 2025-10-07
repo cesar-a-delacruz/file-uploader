@@ -1,4 +1,4 @@
-div#header {
+header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,11 +8,11 @@ div#header {
   gap: 5px;
 }
 
-#header a:visited {
+header a:visited {
   color: rgb(78, 187, 255);
 }
 
-#header button {
+header button {
   background-color: rgb(78, 187, 255);
   border-radius: 7px;
   padding: 7px 10px;
