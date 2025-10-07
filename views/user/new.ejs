@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Uploader: <%= title %></title>
     <link rel="stylesheet" href="/styles/all.css">
+    <link rel="stylesheet" href="/styles/form.css">
 </head>
 <body>
     <%- include("../header.ejs") %>
     <main>
         <form action="/user/create" method="post" novalidate>
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username">
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
-            <br>
-            <label for="confirm">Confirm Password:</label>
-            <input type="password" name="confirm" id="confirm">
-            <br>
+            <div class="field">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="field">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <div class="field">
+                <label for="confirm">Confirm Password:</label>
+                <input type="password" name="confirm" id="confirm">
+            </div>
     
             <button type="submit">Register</button>
         </form>

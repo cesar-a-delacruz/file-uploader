@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Uploader: <%= title %></title>
     <link rel="stylesheet" href="/styles/all.css">
+    <link rel="stylesheet" href="/styles/form.css">
 </head>
 <body>
     <%- include("../header.ejs") %>
@@ -12,9 +13,11 @@
         <form action="/folder/update/" method="post" novalidate>
             <input type="hidden" name="id" value="<%= folder.id %>">
             <input type="hidden" name="old_name" value="<%= folder.name %>">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="<%= folder.name %>">
-            <br>
+            
+            <div class="field">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="<%= folder.name %>">
+            </div>
             <button type="submit">Update</button>
         </form>
     </main>

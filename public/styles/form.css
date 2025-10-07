@@ -1,23 +1,26 @@
+main, main form, form div.field {
+    display: flex;
+}
+main form, form div.field {
+    flex-direction: column;
+}
+
 main {
-  display: flex;
   justify-content: center;
   align-items: start;
 }
 
 main form {
-  display: flex;
-  flex-direction: column;
   gap: 15px;
   margin-top: 10%;
 }
 
-form div.field {
-  display: flex;
-  flex-direction: column;
-}
-
 .field * {
   font-size: 1.2rem;
+}
+
+.field label {
+  font-weight: bold;
 }
 
 .field input {

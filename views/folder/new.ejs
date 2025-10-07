@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Uploader: <%= title %></title>
     <link rel="stylesheet" href="/styles/all.css">
+    <link rel="stylesheet" href="/styles/form.css">
 </head>
 <body>
     <%- include("../header.ejs") %>
     <main>
         <form action="/folder/create" method="post" novalidate>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name">
-            <br>
+            <div class="field">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
             <button type="submit">Create</button>
         </form>
     </main>
