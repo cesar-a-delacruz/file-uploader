@@ -1,0 +1,21 @@
+div#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(56, 114, 150);
+  padding: 20px;
+  gap: 5px;
+}
+
+#header a:visited {
+  color: rgb(78, 187, 255);
+}
+
+#header button {
+  background-color: rgb(78, 187, 255);
+  border-radius: 7px;
+  padding: 7px 10px;
+  border: none;
+  font-weight: bold;
+}
