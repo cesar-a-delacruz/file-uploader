@@ -1,8 +1,11 @@
-main, main form, form div.field {
-    display: flex;
+main,
+main form,
+form div.field {
+  display: flex;
 }
-main form, form div.field {
-    flex-direction: column;
+main form,
+form div.field {
+  flex-direction: column;
 }
 
 main {

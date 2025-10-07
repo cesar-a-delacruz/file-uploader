@@ -1,0 +1,31 @@
+main,
+main li,
+li div.options {
+  display: flex;
+}
+
+main {
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding-top: 10%;
+  gap: 40px;
+}
+
+ul {
+  padding: 20px;
+  border-radius: 7px;
+  background-color: rgb(117, 165, 195);
+}
+
+li {
+  list-style: none;
+  gap: 40px;
+  padding: 10px;
+  border-radius: 7px;
+  background-color: rgb(97, 116, 128);
+}
+
+li div.options {
+  gap: 20px;
+}
