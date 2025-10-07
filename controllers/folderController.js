@@ -21,7 +21,7 @@ module.exports = {
   async edit(req, res) {
     const userId = Number(req.user.id);
     const folder = await model.findFirst({
-      where: { userId, name: req.params.name },
+      where: { userId, id: Number(req.params.folderId) },
     });
     res
       .status(200)
