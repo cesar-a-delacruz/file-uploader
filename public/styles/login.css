@@ -1,0 +1,32 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+main form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10%;
+}
+
+form div.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field * {
+  font-size: 1.2rem;
+}
+
+.field input {
+  background-color: rgb(97, 116, 128);
+  width: 250px;
+  border-radius: 7px;
+}
+
+main form button {
+  width: 50%;
+  align-self: center;
+}

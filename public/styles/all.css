@@ -3,6 +3,7 @@
 * {
   margin: 0;
   color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -15,4 +16,20 @@ body {
 main {
   flex-grow: 1;
   background-color: rgb(48, 66, 78);
+}
+
+a:visited {
+  color: rgb(78, 187, 255);
+}
+
+button {
+  background-color: rgb(78, 187, 255);
+  border-radius: 7px;
+  padding: 7px 10px;
+  border: none;
+  font-weight: bold;
+}
+
+label {
+  font-weight: bold;
 }

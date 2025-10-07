@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Uploader: <%= title %></title>
     <link rel="stylesheet" href="/styles/all.css">
+    <link rel="stylesheet" href="/styles/login.css">
 </head>
 <body>
     <%- include("./header.ejs") %>
     <main>
         <form action="/login" method="post" novalidate>
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username">
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
-            <br>
+            <div class="field">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="field">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+            </div>
     
             <button type="submit">Login</button>
         </form>
