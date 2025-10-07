@@ -54,13 +54,16 @@ module.exports = {
       }
       if (!req.user) return res.status(400).json("log in");
 
-      const { name, folder } = req.body;
+      const name = req.body.name + req.ext;
+      const folderId = Number(req.body.folder);
       const size = Number((req.file.size / 1000000).toFixed(2));
+      const path = `${req.file.destination.replace("uploads", "")}/${name}`;
       const userId = req.user.id;
       await model.create({
-        data: { name: name + req.ext, size, userId, folderId: Number(folder) },
+        data: { name, size, path, userId, folderId },
       });
-      res.redirect(`/file/${folder}/index`);
+
+      res.redirect(`/file/${folderId}/index`);
     },
   ],
   delete: async (req, res) => {
