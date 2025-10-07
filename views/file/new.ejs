@@ -8,16 +8,18 @@
 </head>
 <body>
     <%- include("../header.ejs") %>
-    <form action="/file/create" method="post" enctype="multipart/form-data" novalidate>
-        <input type="hidden" value="<%= folderId %>" name="folder">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name">
-        <br>
-        <label for="file">File:</label>
-        <input type="file" name="file" id="file">
-        <br>
-
-        <button type="submit">Upload</button>
-    </form>
+    <main>
+        <form action="/file/create" method="post" enctype="multipart/form-data" novalidate>
+            <input type="hidden" value="<%= folderId %>" name="folder">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name">
+            <br>
+            <label for="file">File:</label>
+            <input type="file" name="file" id="file">
+            <br>
+    
+            <button type="submit">Upload</button>
+        </form>
+    </main>
 </body>
 </html>

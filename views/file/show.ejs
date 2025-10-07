@@ -8,11 +8,13 @@
 </head>
 <body>
     <%- include("../header.ejs") %>
-    <p>Size: <span><%= file.size %> MB</span></p>
-    <p>Upload Time: <span><%= file.uploadTime %></span></p>
-    <form action="/file/download/<%= file.name %>" method="post">
-        <input type="hidden" name="folder" value="<%= folder %>">
-        <button type="submit">Download</button>
-    </form>
+    <main>
+        <p>Size: <span><%= file.size %> MB</span></p>
+        <p>Upload Time: <span><%= file.uploadTime %></span></p>
+        <form action="/file/download/<%= file.name %>" method="post">
+            <input type="hidden" name="folder" value="<%= folder %>">
+            <button type="submit">Download</button>
+        </form>
+    </main>
 </body>
 </html>

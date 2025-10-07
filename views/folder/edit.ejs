@@ -8,13 +8,15 @@
 </head>
 <body>
     <%- include("../header.ejs") %>
-    <form action="/folder/update/" method="post" novalidate>
-        <input type="hidden" name="id" value="<%= folder.id %>">
-        <input type="hidden" name="old_name" value="<%= folder.name %>">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<%= folder.name %>">
-        <br>
-        <button type="submit">Update</button>
-    </form>
+    <main>
+        <form action="/folder/update/" method="post" novalidate>
+            <input type="hidden" name="id" value="<%= folder.id %>">
+            <input type="hidden" name="old_name" value="<%= folder.name %>">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= folder.name %>">
+            <br>
+            <button type="submit">Update</button>
+        </form>
+    </main>
 </body>
 </html>

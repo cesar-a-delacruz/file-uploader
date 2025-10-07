@@ -8,11 +8,13 @@
 </head>
 <body>
     <%- include("../header.ejs") %>
-    <form action="/folder/create" method="post" novalidate>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-        <br>
-        <button type="submit">Create</button>
-    </form>
+    <main>
+        <form action="/folder/create" method="post" novalidate>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <br>
+            <button type="submit">Create</button>
+        </form>
+    </main>
 </body>
 </html>

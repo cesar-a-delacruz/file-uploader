@@ -8,24 +8,26 @@
 </head>
 <body>
     <%- include("../header.ejs") %>
-    <a href="/file/new?folderName=<%= title %>">New</a>
-    <% if (files.length) { %>
-    <ul>
-        <% files.forEach(file => { %>
-        <li>
-            <span><%= file.name %></span> 
-            <div class="options">
-                <a href="/file/show/<%= file.id %>">View</a>
-                <form action="/file/delete" method="post">
-                    <input type="hidden" name="id" value="<%= file.id %>">
-                    <button type="submit">Delete</button>
-                </form>
-            </div>
-        </li>
-        <% }) %>
-    </ul>
-    <% } else { %>
-        <p>No files have been created!</p>
-    <% } %>
+    <main>
+        <a href="/file/new?folderName=<%= title %>">New</a>
+        <% if (files.length) { %>
+        <ul>
+            <% files.forEach(file => { %>
+            <li>
+                <span><%= file.name %></span> 
+                <div class="options">
+                    <a href="/file/show/<%= file.id %>">View</a>
+                    <form action="/file/delete" method="post">
+                        <input type="hidden" name="id" value="<%= file.id %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </li>
+            <% }) %>
+        </ul>
+        <% } else { %>
+            <p>No files have been created!</p>
+        <% } %>
+    </main>
 </body>
 </html>

@@ -8,26 +8,28 @@
 </head>
 <body>
     <%- include("../header.ejs") %>
-    <a href="/folder/new">New</a>
-    <% if (folders.length) { %>
-    <ul>
-        <% folders.forEach(folder => { %>
-        <li>
-            <span><%= folder.name %></span> 
-            <div class="options">
-                <a href="/file/<%= folder.id %>/index">View</a>
-                <a href="/folder/edit/<%= folder.name %>">Edit</a>
-                <form action="/folder/delete" method="post">
-                    <input type="hidden" name="id" value="<%= folder.id %>">
-                    <input type="hidden" name="name" value="<%= folder.name %>">
-                    <button type="submit">Delete</button>
-                </form>
-            </div>
-        </li>
-        <% }) %>
-    </ul>
-    <% } else { %>
-        <p>No folders have been created!</p>
-    <% } %>
+    <main>
+        <a href="/folder/new">New</a>
+        <% if (folders.length) { %>
+        <ul>
+            <% folders.forEach(folder => { %>
+            <li>
+                <span><%= folder.name %></span> 
+                <div class="options">
+                    <a href="/file/<%= folder.id %>/index">View</a>
+                    <a href="/folder/edit/<%= folder.name %>">Edit</a>
+                    <form action="/folder/delete" method="post">
+                        <input type="hidden" name="id" value="<%= folder.id %>">
+                        <input type="hidden" name="name" value="<%= folder.name %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </li>
+            <% }) %>
+        </ul>
+        <% } else { %>
+            <p>No folders have been created!</p>
+        <% } %>
+    </main>
 </body>
 </html>
