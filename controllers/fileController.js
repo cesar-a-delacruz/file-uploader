@@ -17,7 +17,12 @@ module.exports = {
     ).name;
     res
       .status(200)
-      .render("file/index", { title: folderName, user: req.user, files });
+      .render("file/index", {
+        title: folderName,
+        user: req.user,
+        files,
+        index: "/folder",
+      });
   },
   async new(req, res) {
     const folderId = (
@@ -27,7 +32,12 @@ module.exports = {
     ).id;
     res
       .status(200)
-      .render("file/new", { title: "New File", user: req.user, folderId });
+      .render("file/new", {
+        title: "New File",
+        user: req.user,
+        folderId,
+        index: `${folderId}/index`,
+      });
   },
   async show(req, res) {
     const file = await model.findFirst({
@@ -39,6 +49,7 @@ module.exports = {
       user: req.user,
       file,
       folder: file.folderId,
+      index: `${folderId}/index`,
     });
   },
   create: [

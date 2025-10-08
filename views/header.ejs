@@ -1,10 +1,13 @@
 <header>
     <h1><%= locals.title %></h1>
-    <% if (locals.user) {%>
-    <form action="/logout" method="get">
-        <button type="submit">Logout</button>
-    </form>
-    <% } else {%>
-    <a href="<%= locals.link %>"><%= locals.linkName %></a>
+    <div class="options">
+        <% if (locals.user) {%>
+        <a href="<%= locals.index %>">View All</a>
+        <form action="/logout" method="get">
+            <button type="submit">Logout</button>
+        </form>
+        <% } else {%>
+        <a href="<%= locals.link %>"><%= locals.linkName %></a>
+    </div>
     <% } %>
 </header>

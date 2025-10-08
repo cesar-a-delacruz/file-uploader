@@ -16,7 +16,11 @@ module.exports = {
   async new(req, res) {
     res
       .status(200)
-      .render("folder/new", { title: "New Folder", user: req.user });
+      .render("folder/new", {
+        title: "New Folder",
+        user: req.user,
+        index: "/folder",
+      });
   },
   async edit(req, res) {
     const userId = Number(req.user.id);
@@ -25,7 +29,12 @@ module.exports = {
     });
     res
       .status(200)
-      .render("folder/edit", { title: "Edit Folder", user: req.user, folder });
+      .render("folder/edit", {
+        title: "Edit Folder",
+        user: req.user,
+        folder,
+        index: "/folder",
+      });
   },
   create: [
     validator,
