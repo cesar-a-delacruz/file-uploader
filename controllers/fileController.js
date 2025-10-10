@@ -3,8 +3,8 @@ const { validationResult } = require("express-validator");
 const validator = require("../validators/fileValidator");
 const model = new PrismaClient().file;
 const folderModel = new PrismaClient().folder;
-const fs = require("fs");
-const upload = require("../middlewares/files");
+const { Buffer } = require("buffer");
+const { cloudinary, fileHandler } = require("../middlewares/files");
 
 module.exports = {
   async index(req, res) {
@@ -15,14 +15,12 @@ module.exports = {
     const folderName = (
       await folderModel.findFirst({ where: { id: folderId } })
     ).name;
-    res
-      .status(200)
-      .render("file/index", {
-        title: folderName,
-        user: req.user,
-        files,
-        index: "/folder",
-      });
+    res.status(200).render("file/index", {
+      title: folderName,
+      user: req.user,
+      files,
+      index: "/folder",
+    });
   },
   async new(req, res) {
     const folderId = (
@@ -30,14 +28,12 @@ module.exports = {
         where: { userId: req.user.id, name: req.query.folderName },
       })
     ).id;
-    res
-      .status(200)
-      .render("file/new", {
-        title: "New File",
-        user: req.user,
-        folderId,
-        index: `${folderId}/index`,
-      });
+    res.status(200).render("file/new", {
+      title: "New File",
+      user: req.user,
+      folderId,
+      index: `/file/${folderId}/index`,
+    });
   },
   async show(req, res) {
     const file = await model.findFirst({
@@ -49,26 +45,26 @@ module.exports = {
       user: req.user,
       file,
       folder: file.folderId,
-      index: `${folderId}/index`,
+      index: `/file/${file.folderId}/index`,
     });
   },
   create: [
-    upload.single("file"),
+    fileHandler,
     validator,
     async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        fs.rm(req.file.path, (err) => {
-          if (err) console.error(err);
-        });
+        await cloudinary.uploader.destroy(req.public_id);
         return res.status(400).json(errors.array());
       }
       if (!req.user) return res.status(400).json("log in");
 
-      const name = req.body.name + req.ext;
+      const name = req.body.name;
       const folderId = Number(req.body.folder);
       const size = Number((req.file.size / 1000000).toFixed(2));
-      const path = `${req.file.destination.replace("uploads", "")}/${name}`;
+      const path =
+        "https://res.cloudinary.com/dbjffqlow/image/upload/v1760113651/" +
+        req.public_id;
       const userId = req.user.id;
       await model.create({
         data: { name, size, path, userId, folderId },
@@ -87,9 +83,9 @@ module.exports = {
       })
     ).name;
 
-    fs.rm(`uploads/${req.user.id}/${folderName}/${file.name}`, (err) => {
-      if (err) console.error(err);
-    });
+    await cloudinary.uploader.destroy(
+      `file_uploader/${req.user.id}/${folderName}/${file.name}`,
+    );
     res.redirect(`/file/${file.folderId}/index`);
   },
   download: async (req, res) => {
@@ -98,11 +94,19 @@ module.exports = {
         where: { userId: req.user.id, id: Number(req.body.folder) },
       })
     ).name;
-    res.download(
-      `uploads/${req.user.id}/${folderName}/${req.params.fileName}`,
-      (err) => {
-        if (err) console.error(err);
-      },
+    const publicId = `file_uploader/${req.user.id}/${folderName}/${req.params.fileName}`;
+    const fileInfo = await cloudinary.api.resource(publicId);
+    const fileUrl = await cloudinary.url(publicId, {
+      resource_type: fileInfo.resource_type,
+      format: fileInfo.format,
+    });
+    const fileRes = await fetch(fileUrl, { mode: "cors" });
+    const fileBuff = Buffer.from(await fileRes.arrayBuffer());
+
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${req.params.fileName}.${fileInfo.format}"`,
     );
+    res.send(fileBuff);
   },
 };
